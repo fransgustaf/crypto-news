@@ -1,4 +1,7 @@
+import os
 import sys
+
+# export SLACK_WEBHOOK=slack webhook
 
 # Posting to a Slack channel
 def post_to_slack(text):
@@ -8,8 +11,9 @@ def post_to_slack(text):
     post = {"text": "{0}".format(text)}
 
     try:
+        webhook = os.environ['SLACK_WEBHOOK']
         json_data = json.dumps(post)
-        req = request.Request("https://hooks.slack.com/services/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",
+        req = request.Request(webhook,
                               data=json_data.encode('ascii'),
                               headers={'Content-Type': 'application/json'})
         resp = request.urlopen(req)
@@ -22,4 +26,3 @@ if __name__ == '__main__':
 
 
 
-# https://hooks.slack.com/services/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
